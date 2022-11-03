@@ -1,11 +1,13 @@
 package controllers
 
 import (
-	"blog-admin/dto"
+	"blog-admin/common"
 	"blog-admin/initialization"
 	"blog-admin/models"
 	"blog-admin/tools"
 	"github.com/gin-gonic/gin"
+	"log"
+	"net/http"
 )
 
 type AuthController struct {
@@ -24,8 +26,15 @@ func (receiver AuthController) Login(ctx *gin.Context) {
 		tools.Fail(ctx, 400, nil, "用户或密码错误")
 		return
 	}
+	// 发放token
+	token, err := common.ReleaseToken(admin)
+	if err != nil {
+		tools.Response(ctx, http.StatusInternalServerError, 500, nil, "系统异常")
+		log.Printf("token generate error: %v", err)
+		return
+	}
 	tools.Success(ctx, gin.H{
-		"data": dto.ToAdminDto(admin),
+		"token": token,
 	}, "登录成功")
 }
 

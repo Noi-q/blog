@@ -11,3 +11,4 @@
 - gorm
   - `gorm.io/gorm`
   - `gorm.io/driver/mysql`
+- jwt `github.com/dgrijalva/jwt-go`
