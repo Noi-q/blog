@@ -1,0 +1,2 @@
+# blog-admin/router
+router\routes.go:19:22: cannot use controllers.AuthController{}.Info (value of type func()) as type gin.HandlerFunc in argument to auth.POST
