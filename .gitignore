@@ -17,3 +17,5 @@
 # Goland
 .idea
 .idea/*
+admin/tmp
+admin/tmp/*
