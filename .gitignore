@@ -4,6 +4,8 @@
 *.dll
 *.so
 *.dylib
+*.log
+/admin/tmp
 
 # Test binary, built with `go test -c`
 *.test
@@ -17,5 +19,3 @@
 # Goland
 .idea
 .idea/*
-admin/tmp
-admin/tmp/*
