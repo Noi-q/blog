@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"blog-admin/common"
+	"blog-admin/dto"
 	"blog-admin/initialization"
 	"blog-admin/models"
 	"blog-admin/tools"
@@ -10,8 +11,7 @@ import (
 	"net/http"
 )
 
-type AuthController struct {
-}
+type AuthController struct{}
 
 func (receiver AuthController) Login(ctx *gin.Context) {
 	// 获取参数
@@ -39,5 +39,32 @@ func (receiver AuthController) Login(ctx *gin.Context) {
 }
 
 func (receiver AuthController) Info(ctx *gin.Context) {
+	admin, _ := ctx.Get("admin")
+	tools.Response(ctx, http.StatusOK, 200, gin.H{
+		"info": dto.ToAdminDto(admin.(models.Admin)),
+	}, "获取成功")
+}
 
+func (receiver AuthController) Update(ctx *gin.Context) {
+	//admin, _ := ctx.Get("admin")
+	DB := initialization.GetDB()
+	//info := dto.ToAdminDto(admin.(models.Admin)) // 解析数据
+	// 获取参数
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	email := ctx.PostForm("email")
+	avatar := ctx.PostForm("avatar")
+	autograph := ctx.PostForm("autograph")
+	// 更新数据
+	var data models.Admin
+	DB.First(&data)
+	data.UserName = username
+	data.Password = password
+	data.Email = email
+	data.Avatar = avatar
+	data.Autograph = autograph
+	DB.Save(&data)
+	tools.Response(ctx, http.StatusOK, 200, gin.H{
+		"info": data,
+	}, "更新成功")
 }

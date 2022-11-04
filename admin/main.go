@@ -9,11 +9,12 @@ import (
 )
 
 func main() {
-	initialization.InitConfig()   // 初始化配置文件
-	initialization.InitDatabase() // 初始化数据库
-	CreateRoot()                  // 创建管理员
-	r := gin.Default()            // 初始化Gin
-	router.Routes(r)              // 初始化路由
+	initialization.InitConfig()     // 初始化配置文件
+	initialization.InitDatabase()   // 初始化数据库
+	CreateRoot()                    // 创建管理员
+	r := gin.Default()              // 初始化Gin
+	r.Static("/static", "./static") // 初始化文件资源目录
+	router.Routes(r)                // 初始化路由
 	// 配置端口
 	if port := viper.GetString("server.port"); port != "" {
 		panic(r.Run(":" + port))

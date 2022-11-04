@@ -1,12 +1,14 @@
 package dto
 
-import "blog-admin/models"
+import (
+	"blog-admin/models"
+)
 
 type AdminDto struct {
-	UserName  string
-	Email     string
-	Avatar    string
-	Autograph string
+	UserName  string `json:"user_name"`
+	Email     string `json:"email"`
+	Avatar    string `json:"avatar"`
+	Autograph string `json:"autograph"`
 }
 
 func ToAdminDto(admin models.Admin) AdminDto {

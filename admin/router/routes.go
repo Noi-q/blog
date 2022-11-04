@@ -2,6 +2,7 @@ package router
 
 import (
 	"blog-admin/controllers"
+	"blog-admin/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,8 +16,11 @@ func Routes(engine *gin.Engine) {
 	auth := engine.Group("/api/auth/")
 	{
 		auth.POST("/")
-		auth.POST("/login", controllers.AuthController{}.Login)
-		auth.POST("/info", controllers.AuthController{}.Info)
-		auth.POST("/update_password")
+		auth.POST("/login", controllers.AuthController{}.Login)                                     // 登录
+		auth.POST("/info", middleware.AuthMiddleware(), controllers.AuthController{}.Info)          // 信息
+		auth.POST("/update_info", middleware.AuthMiddleware(), controllers.AuthController{}.Update) // 更新
 	}
+
+	// 文件上传
+	engine.POST("/api/upload", middleware.AuthMiddleware(), controllers.UploadController{}.Upload)
 }
