@@ -6,7 +6,7 @@
 *.dylib
 *.log
 /admin/tmp
-/admin/static/upload/*
+/admin/static/upload
 
 # Test binary, built with `go test -c`
 *.test
