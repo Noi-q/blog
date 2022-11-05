@@ -8,6 +8,8 @@
 /admin/tmp
 /admin/static/upload
 /admin/static/avatar
+/front/node_modules
+/front/.vscode
 
 # Test binary, built with `go test -c`
 *.test
