@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"blog-admin/initialization"
+	"blog-admin/models"
 	"blog-admin/tools"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -13,7 +15,7 @@ import (
 type UploadController struct {
 }
 
-func (receiver UploadController) Upload(ctx *gin.Context) {
+func (receiver UploadController) Img(ctx *gin.Context) {
 	// 获取上传文件
 	file, err := ctx.FormFile("file")
 	if err != nil {
@@ -34,7 +36,7 @@ func (receiver UploadController) Upload(ctx *gin.Context) {
 	}
 	// 创建图片保存目录 static/upload/
 	day := time.Now().Format("20060102")
-	dir := "./static/upload/" + day
+	dir := "./static/avatar/" + day
 	errMkdir := os.MkdirAll(dir, 0666)
 	if errMkdir != nil {
 		tools.Response(ctx, http.StatusInternalServerError, 500, nil, "创建目录失败")
@@ -48,8 +50,13 @@ func (receiver UploadController) Upload(ctx *gin.Context) {
 	if errUpload != nil {
 		tools.Response(ctx, http.StatusOK, 200, nil, "上传失败: "+errUpload.Error())
 	}
+	// 更新数据库
+	db := initialization.GetDB()
+	var admin models.Admin
+	db.Find(&admin).Updates(models.Admin{
+		Avatar: dst,
+	})
 	tools.Response(ctx, http.StatusOK, 200, gin.H{
-		"file": fileName,
-		"src":  dst,
-	}, "上传成功")
+		"src": dst,
+	}, "更新成功")
 }
