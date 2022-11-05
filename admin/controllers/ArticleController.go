@@ -134,7 +134,7 @@ func (receiver ArticleController) Query(ctx *gin.Context) {
 	if ib == true {
 		db.Where("id = ?", id).Find(&articleId)
 		tools.Response(ctx, http.StatusOK, 200, gin.H{
-			"data": articleId,
+			"data": dto.ToArticleDto(articleId),
 		}, "获取成功")
 		return
 	}

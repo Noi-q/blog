@@ -55,6 +55,14 @@ func (receiver AuthController) Update(ctx *gin.Context) {
 	email := ctx.PostForm("email")
 	avatar := ctx.PostForm("avatar")
 	autograph := ctx.PostForm("autograph")
+	if username == "" {
+		tools.Fail(ctx, 200, nil, "username不能为空")
+		return
+	}
+	if password == "" {
+		tools.Fail(ctx, 200, nil, "password不能为空")
+		return
+	}
 	// 更新数据
 	var data models.Admin
 	DB.First(&data)

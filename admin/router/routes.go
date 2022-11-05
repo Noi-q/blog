@@ -23,7 +23,7 @@ func Routes(engine *gin.Engine) {
 	// 文件上传
 	upload := engine.Group("/api/upload")
 	{
-		upload.POST("/avatar", middleware.AuthMiddleware(), controllers.UploadController{}.Img) // 图片上传
+		upload.POST("/avatar", middleware.AuthMiddleware(), controllers.UploadController{}.Img) // 头像上传
 	}
 
 	// 栏目
