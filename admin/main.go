@@ -1,6 +1,7 @@
 package main
 
 import (
+	"blog-admin/common"
 	"blog-admin/initialization"
 	"blog-admin/models"
 	"blog-admin/router"
@@ -9,12 +10,13 @@ import (
 )
 
 func main() {
-	initialization.InitConfig()     // 初始化配置文件
-	initialization.InitDatabase()   // 初始化数据库
-	CreateRoot()                    // 创建管理员
-	r := gin.Default()              // 初始化Gin
-	r.Static("/static", "./static") // 初始化文件资源目录
-	router.Routes(r)                // 初始化路由
+	initialization.InitConfig()            // 初始化配置文件
+	initialization.InitDatabase()          // 初始化数据库
+	CreateRoot()                           // 创建管理员
+	r := gin.New()                         // 初始化Gin
+	r.Use(common.Logger(), gin.Recovery()) // 初始化自定义日志中间件
+	r.Static("/static", "./static")        // 初始化文件资源目录
+	router.Routes(r)                       // 初始化路由
 	// 配置端口
 	if port := viper.GetString("server.port"); port != "" {
 		panic(r.Run(":" + port))
