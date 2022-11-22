@@ -11,7 +11,7 @@
 /front/node_modules
 /front/.vscode
 # /admin/log/log
-
+*log
 # Test binary, built with `go test -c`
 *.test
 
