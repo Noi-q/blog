@@ -13,7 +13,7 @@ import (
 
 // 自定义日志中间件
 func Logger() gin.HandlerFunc {
-	filePath := "log/log"
+	filePath := "log/log.log"
 	linkName := "latest_log.log"
 	src, err := os.OpenFile(filePath, os.O_RDWR|os.O_CREATE, 0755)
 	if err != nil {
