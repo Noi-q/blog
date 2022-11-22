@@ -12,6 +12,8 @@
 /front/.vscode
 # /admin/log/log
 *log
+*.zip
+*.rar
 # Test binary, built with `go test -c`
 *.test
 
