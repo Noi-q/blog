@@ -10,7 +10,7 @@
 /admin/static/avatar
 /front/node_modules
 /front/.vscode
-/admin/log/log
+# /admin/log/log
 
 # Test binary, built with `go test -c`
 *.test
