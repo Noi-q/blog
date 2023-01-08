@@ -13,7 +13,7 @@ func Routes(engine *gin.Engine) {
 			"msg":  "接口测试",
 		})
 	})
-	//
+	// 登录
 	auth := engine.Group("/api/auth")
 	{
 		auth.POST("/login", controllers.AuthController{}.Login)                                     // 登录
@@ -25,7 +25,6 @@ func Routes(engine *gin.Engine) {
 	{
 		upload.POST("/avatar", middleware.AuthMiddleware(), controllers.UploadController{}.Img) // 头像上传
 	}
-
 	// 栏目
 	category := engine.Group("/api/category")
 	{

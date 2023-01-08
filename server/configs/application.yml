@@ -1,12 +1,12 @@
 server:
-  port: 8080
+  port: 8080 # 启动端口
 datasource:
   driverName: mysql
-  host: 127.0.0.1
-  port: 3306
-  database: blog
-  username: root
-  password: adminadmin
+  host: 127.0.0.1 # mysql地址
+  port: 3306  # mysql端口
+  database: blog  # 数据库名
+  username: root  # 数据库用户名
+  password: adminadmin  # 数据库密码
   charset: utf8mb4
   parseTime: true
   loc: Local

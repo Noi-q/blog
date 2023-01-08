@@ -3,6 +3,7 @@ package main
 import (
 	"blog-admin/common"
 	"blog-admin/initialization"
+	"blog-admin/middleware"
 	"blog-admin/models"
 	"blog-admin/router"
 	"github.com/gin-gonic/gin"
@@ -14,6 +15,7 @@ func main() {
 	initialization.InitDatabase()          // 初始化数据库
 	CreateRoot()                           // 创建管理员
 	r := gin.New()                         // 初始化Gin
+	r.Use(middleware.CorsMiddleware())     // 初始化跨域
 	r.Use(common.Logger(), gin.Recovery()) // 初始化自定义日志中间件
 	r.Static("/static", "./static")        // 初始化文件资源目录
 	router.Routes(r)                       // 初始化路由
